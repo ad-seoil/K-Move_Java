@@ -43,16 +43,24 @@ public class Theater {
 			num = scan.nextInt();
 			switch (num) {
 				case 1:
+					// 좌석정보 출력
 					tm.seatInfo();
 					break;
 				case 2:
+					// 좌석 예약
 					tm.inputCnt();
+//					cnt = tm.inputCnt();
+//					tm.reservationSeats(cnt);
 					break;
 				case 0:
-					System.out.println("프로그램을 종료합니다");
-					System.exit(0);
+					// 종료
+//					System.out.println("프로그램을 종료합니다");
+					tm.printText(1);
+					System.exit(0); // return;
 					break;
 				default:
+					// 잘못입력했다 출력 
+					tm.printText(2);
 					break;
 			}
 		}

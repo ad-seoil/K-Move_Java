@@ -23,7 +23,17 @@ public class Theater_Method {
 		System.out.println("2. 좌석 예약");
 		System.out.println("0. 종    료");
 		System.out.println("==================");
-		System.out.print("번호를 선택하세요 : ");
+		System.out.print("> 번호를 선택하세요 : ");
+//		String menu = """
+//				메뉴의 번호를 선택해주세요
+//				====================
+//				1. 좌석 확인
+//				2. 좌석 예약
+//				0. 종    료
+//				====================
+//				번호를 선택하세요 : 
+//				""";
+//		System.out.print(menu);
 	}
 	
 	// 2. inputCnt() : 예약할 좌석의 개수를 입력받아 반환한다.
@@ -80,8 +90,17 @@ public class Theater_Method {
 			
 		}
 		System.out.println();
-		
-		
-		
+	}
+
+	public void printText(int num) {
+		switch (num) {
+		case 1: 
+			System.out.println("프로그램을 종료합니다");
+			break;
+		case 2: 
+			System.out.println("잘못 입력하셨습니다");
+			break;
+		}
 	}
 }
+
