@@ -1,6 +1,6 @@
 package chapter11.object;
 
-public class Human {
+public class Human implements Cloneable{
 	int age;
 	String name;
 	
@@ -22,6 +22,18 @@ public class Human {
 			return (this.age == h.age && this.name == h.name); 
 		}else {
 			return false;
+		}
+	}
+	
+	@Override
+	protected Object clone() {
+		try {
+			Human other = (Human) super.clone();
+			other.score = this.score.clone();
+			return other;
+			
+		} catch (Exception e) {
+			return null;
 		}
 	}
 	
