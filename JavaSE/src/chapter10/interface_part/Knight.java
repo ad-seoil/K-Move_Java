@@ -3,11 +3,8 @@ package chapter10.interface_part;
 // 기사
 public class Knight extends Novice implements Skill {
 
-	public String job;
-
-	public Knight() {
-		super();
-		job = "기사";
+	public Knight(String name, int strength, int dexterity, int intelligence) {
+		super(name, strength, dexterity, intelligence);
 	}
 	
 	@Override
@@ -17,7 +14,7 @@ public class Knight extends Novice implements Skill {
 
 	@Override
 	public void skill() {
-		System.out.println("기사 스킬 발동");
+		System.out.println("게파드");
 		
 	}
 

@@ -1,6 +1,5 @@
 package chapter10.interface_part;
 
-import java.util.Random;
 import java.util.Scanner;
 
 public class GameMain {
@@ -31,99 +30,175 @@ public class GameMain {
 		// 메뉴
 		Scanner scan = new Scanner(System.in);
 		GameMain_Method gm = new GameMain_Method();
-		Novice player = new Novice();
-		int job = 0;
+		Novice character = null;
+		Skill skill = null;
+		int num = 0;
 		
-		while(true) {
-			// 메뉴 출력 실행
+		while (true) {
 			gm.printMenu();
-			// 번호 선택
-			int choose = scan.nextInt();
-			switch (choose) {
-			// 캐릭터 생성
-			case 1:
-				// 이름과 스탯값을 초기값으로 하는 Novice(평민)클래스형 인스턴스를 생성
-				Novice create = new Novice();
-				// 랜덤
-				Random r = new Random();
-				
-				System.out.println("캐릭터를 생성합니다");
-				System.out.print("사용하실 아이디를 입력해주세요 : ");
-				// 아이디 저장
-				create.setName(scan.next());
-				System.out.println("스탯을 부여합니다");
-				// 스탯 랜덤 부여
-				while (true) {
-					create.setDexterity(r.nextInt(9)+1);
-					create.setIntelligence(r.nextInt(9)+1);
-					create.setStrength(r.nextInt(9)+1);
-					// 스탯이 15이상일때 저장할때 물어봄
-					if (create.getDexterity() + create.getIntelligence() + create.getStrength() >= 15) {
-						System.out.println("부여된 스탯정보 : " + "힘[" + create.getStrength() + "] , 민첩[" 
-					+ create.getDexterity() + "], 지능[" + create.getIntelligence() + "]");
-						System.out.print("스탯을 다시 받으시겠습니까? ( y / n ) : ");
-						String save = scan.next();
-						// 저장
-						if (save.equals("n")) {
-							player = create;
-							System.out.println("[ID : " + player.getName() + ", stat : 힘(" 
-							+ player.getStrength() + "), 민첩(" + player.getDexterity() + "), 지능(" + 
-									player.getIntelligence() + " )]");
-							System.out.println("현재 정보로 저장합니다");
-							break;
-						// 재부여
-						} else {
-							System.out.println("스탯을 재부여합니다");
-						}
-					}
-				}
-				break;
-			// 캐릭터 정보 확인
-			case 2:
-				// 캐릭터가 있을때
-				if (player.getName() == null) {
-					System.out.println("캐릭터를 생성해주세요");
-				} else {
-					System.out.println("[ID : " + player.getName() + ", stat : 힘(" 
-							+ player.getStrength() + "), 민첩(" + player.getDexterity() + "), 지능(" + 
-									player.getIntelligence() + " )]");
-				}
-				
-				break;
-			// 전직하기
-			case 3:
-				gm.printJob();
-				job = scan.nextInt();
-				switch (job) {
+			num = scan.nextInt();
+			
+			switch (num) {
 				case 1:
-					Knight kn = new Knight();
-					System.out.println("기사로 전직합니다");
+					character = gm.createCharacter();
+					System.out.println(character); // toString을 적어도 되고 안적어도되
 					break;
 				case 2:
-					System.out.println("도적으로 전직합니다");
+					if (character != null) {
+						gm.characterInfo(character);
+					} else {
+						gm.printText(3);
+					}
 					break;
 				case 3:
-					System.out.println("마법사로 전직합니다");
+					if (character != null) {
+						int jobNum = gm.numberInput();
+						character = gm.jobSelect(jobNum, character);
+					} else {
+						gm.printText(3);
+					}
 					break;
-				}
-				break;
-			// 기본 공격
-			case 4:
-				
-				break;
-			// 스킬 사용
-			case 5:
-
-				break;
-			// 시스템 종료
-			case 0:
-				System.out.println("종료합니다");
-				System.exit(choose);
-				break;
-			default:
-				break;
+				case 4:
+					if (character != null) {
+						character.attack();
+					} else {
+						gm.printText(3);
+					}
+					break;
+				case 5:
+					if (character != null) {
+						skill = gm.skillInfo(character);
+						if (skill != null) {
+							skill.skill();
+						} else {
+							gm.printText(4);
+						}
+					} else {
+						gm.printText(3);
+					}
+					break;
+				case 0:
+					gm.printText(1);
+					return;
+				default:
+					gm.printText(2);
+					break;
 			}
+			
 		}
+		
+		
+		
+		
+		
+		
+//			Novice character = null;
+////		Novice player = new Novice();
+////		int job = 0;
+//		
+//		while(true) {
+//			// 메뉴 출력 실행
+//			gm.printMenu();
+//			// 번호 선택
+//			int choose = scan.nextInt();
+//			switch (choose) {
+//			// 캐릭터 생성
+//			case 1:
+//				// 이름과 스탯값을 초기값으로 하는 Novice(평민)클래스형 인스턴스를 생성
+////				Novice create = new Novice();
+//				// 랜덤
+//				Random r = new Random();
+//				
+//				System.out.println("캐릭터를 생성합니다");
+//				System.out.print("사용하실 아이디를 입력해주세요 : ");
+//				// 아이디 저장
+//				String name = scan.next();
+////				create.setName(scan.next());
+//				System.out.println("스탯을 부여합니다");
+//				character = new Novice(name);
+//				// 스탯 랜덤 부여
+////				while (true) {
+////					create.setDexterity(r.nextInt(9)+1);
+////					create.setIntelligence(r.nextInt(9)+1);
+////					create.setStrength(r.nextInt(9)+1);
+////					// 스탯이 15이상일때 저장할때 물어봄
+////					if (create.getDexterity() + create.getIntelligence() + create.getStrength() >= 15) {
+////						System.out.println("부여된 스탯정보 : " + "힘[" + create.getStrength() + "] , 민첩[" 
+////					+ create.getDexterity() + "], 지능[" + create.getIntelligence() + "]");
+////						System.out.print("스탯을 다시 받으시겠습니까? ( y / n ) : ");
+////						String save = scan.next();
+////						// 저장
+////						if (save.equals("n")) {
+////							player = create;
+////							System.out.println("[ID : " + player.getName() + ", stat : 힘(" 
+////							+ player.getStrength() + "), 민첩(" + player.getDexterity() + "), 지능(" + 
+////									player.getIntelligence() + " )]");
+////							System.out.println("현재 정보로 저장합니다");
+////							break;
+////						// 재부여
+////						} else {
+////							System.out.println("스탯을 재부여합니다");
+////						}
+////					}
+////				}
+////				break;
+//			// 캐릭터 정보 확인
+//			case 2:
+//				if (character != null) {
+//		            character.displayInfo();
+//		        } else {
+//		            System.out.println("캐릭터가 생성되지 않았습니다.");
+//		        }
+//				// 캐릭터가 있을때
+////				if (player.getName() == null) {
+////					System.out.println("캐릭터를 생성해주세요");
+////				} else {
+////					System.out.println("[ID : " + player.getName() + ", stat : 힘(" 
+////							+ player.getStrength() + "), 민첩(" + player.getDexterity() + "), 지능(" + 
+////									player.getIntelligence() + " )]");
+////				}
+////				
+////				break;
+//			// 전직하기
+//			case 3:
+//				gm.printJob();
+//				int SelectJob = scan.nextInt();
+//				if (character != null) {
+//		            switch (SelectJob) {
+//		                case 1:
+//		                    character = new Knight();
+//		                    break;
+//		                case 2:
+//		                    character = new Thief();
+//		                    break;
+//		                case 3:
+//		                    character = new Magician();
+//		                    break;
+//		                default:
+//		                    System.out.println("잘못된 직업입니다.");
+//		                    return;
+//		            }
+//		            System.out.println(character.getName() + "이(가) " + character.getJob() + "로 전직했습니다.");
+//		        } else {
+//		            System.out.println("캐릭터가 생성되지 않았습니다.");
+//		        }
+//			// 기본 공격
+//			case 4:
+//				character.attack();
+//				break;
+//			// 스킬 사용
+//			case 5:
+////				character.skill();
+//				break;
+//			// 시스템 종료
+//			case 0:
+//				System.out.println("종료합니다");
+//				System.exit(choose);
+//				break;
+//			default:
+//				break;
+//			}
+//		}
 		
 		
 	}
